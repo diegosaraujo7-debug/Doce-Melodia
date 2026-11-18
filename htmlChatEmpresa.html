@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>bot-Amargo | Doce Melodia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styleChatBotEmpresa.css">
+</head>
+
+<body>
+    <main class="chat">
+        <nav class="site-nav" aria-label="Navegação do site">
+            <a href="index.html">Início</a>
+            <a href="sobre.html">Sobre</a>
+            <a href="htmlChatEmpresa.html" aria-current="page">Chatbot</a>
+        </nav>
+        <header class="chat-header">
+            <img class="chat-logo" src="logo.png" alt="Logotipo da Doce Melodia" width="56" height="56"
+                onerror="this.style.display='none'">
+            <div>
+                <h1>bot-Amargo</h1>
+                <p>Assistente da Doce Melodia: shows, músicos e cardápio de doces</p>
+            </div>
+        </header>
+
+        <section class="key-box" aria-label="Chave de API">
+            <label for="apiKey">Chave de API (OpenAI)</label>
+            <div class="key-row">
+                <input id="apiKey" type="password" placeholder="sk-..." autocomplete="off" spellcheck="false">
+                <button id="toggleKey" type="button" class="ghost" aria-pressed="false">Mostrar</button>
+            </div>
+            <small>A chave fica só nesta página e não é salva. Use apenas para testes.</small>
+        </section>
+
+        <section id="messages" class="messages" role="log" aria-live="polite" aria-label="Conversa"></section>
+
+        <div class="composer">
+            <label for="userMessage" class="sr-only">Mensagem</label>
+            <textarea id="userMessage" rows="2"
+                placeholder="Digite sua mensagem (Enter envia, Shift+Enter quebra linha)"></textarea>
+            <button id="sendBtn" type="button">Enviar</button>
+        </div>
+    </main>
+    <script src="scriptChatEmpresa.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,262 @@
+:root {
+    --bg: #08060E;
+    --surface: #140D20;
+    --surface-2: #1E1430;
+    --line: #2B1F3F;
+    --text: #F6F1EA;
+    --muted: #BDB2CF;
+    --accent: #FF9A5C;
+    --grad: linear-gradient(90deg, #C81EE8, #FF3D8B, #FF9F2E)
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Nunito", "Segoe UI", Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 24px 16px
+}
+
+:focus-visible {
+    outline: 3px solid #FF9F2E;
+    outline-offset: 2px
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap
+}
+
+.chat {
+    width: 100%;
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    height: calc(100vh - 48px);
+    min-height: 560px
+}
+
+.site-nav {
+    display: flex;
+    gap: 8px
+}
+
+.site-nav a {
+    padding: 7px 16px;
+    border-radius: 999px;
+    text-decoration: none;
+    color: var(--muted);
+    font-weight: 700
+}
+
+.site-nav a:hover {
+    color: var(--text);
+    background: var(--surface)
+}
+
+.site-nav a[aria-current="page"] {
+    color: var(--text);
+    background: var(--surface);
+    box-shadow: inset 0 0 0 1px var(--line)
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    position: relative;
+    overflow: hidden
+}
+
+.chat-header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    background: var(--grad)
+}
+
+.chat-logo {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    border: 1px solid var(--line)
+}
+
+h1 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    line-height: 1.2
+}
+
+.chat-header p {
+    color: var(--muted);
+    font-size: .92rem
+}
+
+.key-box {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 14px 18px
+}
+
+.key-box label {
+    display: block;
+    font-weight: 800;
+    margin-bottom: 6px
+}
+
+.key-row {
+    display: flex;
+    gap: 8px
+}
+
+.key-box small {
+    display: block;
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: .85rem
+}
+
+input,
+textarea {
+    width: 100%;
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 11px 14px;
+    font: inherit
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #8F83A3
+}
+
+input:focus,
+textarea:focus {
+    border-color: #FF3D8B
+}
+
+textarea {
+    resize: none
+}
+
+button {
+    font: inherit;
+    font-weight: 800;
+    border: 0;
+    border-radius: 12px;
+    padding: 0 22px;
+    cursor: pointer;
+    background: var(--grad);
+    color: #1A0B22
+}
+
+button:hover {
+    filter: brightness(1.08)
+}
+
+button:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+    filter: none
+}
+
+button.ghost {
+    background: var(--surface-2);
+    color: var(--text);
+    border: 1px solid var(--line);
+    padding: 0 16px;
+    white-space: nowrap
+}
+
+.messages {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 18px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px
+}
+
+.msg {
+    max-width: 82%;
+    padding: 11px 15px;
+    border-radius: 16px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere
+}
+
+.msg.bot {
+    align-self: flex-start;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-bottom-left-radius: 4px
+}
+
+.msg.user {
+    align-self: flex-end;
+    background: var(--grad);
+    color: #1A0B22;
+    font-weight: 700;
+    border-bottom-right-radius: 4px
+}
+
+.msg.error {
+    align-self: flex-start;
+    background: #2A1020;
+    border: 1px solid #FF3D8B;
+    color: #FFD6E6;
+    border-bottom-left-radius: 4px
+}
+
+.msg.typing {
+    color: var(--muted);
+    font-style: italic
+}
+
+.composer {
+    display: flex;
+    gap: 10px;
+    align-items: stretch
+}
+
+.composer button {
+    min-width: 96px
+}
+
+@media (max-width:520px) {
+    .msg {
+        max-width: 92%
+    }
+
+    .chat-header p {
+        font-size: .85rem
+    }
+}

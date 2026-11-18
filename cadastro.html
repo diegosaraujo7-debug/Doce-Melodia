@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cadastro | Doce Melodia</title>
+    <meta name="description" content="Cadastre-se na Doce Melodia. O endereço é preenchido automaticamente a partir do CEP.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <aside class="side">
+        <a class="brand" href="index.html"><img src="logo.png" alt="" width="44" height="44"><span>Doce Melodia</span></a>
+        <nav aria-label="Navegação principal">
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="cadastro.html" aria-current="page">Cadastro</a></li>
+            </ul>
+        </nav>
+        <div class="tip"><strong>Cada doce tem a sua trilha.</strong>Cadastre-se e receba novidades das bandas parceiras.</div>
+    </aside>
+    <div class="panel">
+        <main>
+            <section class="reg">
+                <div class="reg-top">
+                    <h1>Cadastro de clientes</h1>
+                    <p class="slogan">Crie o seu passe e entre na nossa playlist.</p>
+                </div>
+                <div class="reg-grid">
+                    <form id="form" novalidate>
+                        <h2 class="grp">Seus dados</h2>
+                        <div class="f">
+                            <input id="nome" name="nome" type="text" autocomplete="name" placeholder=" " required>
+                            <label for="nome">Nome completo</label>
+                        </div>
+                        <h2 class="grp">Seu endereço</h2>
+                        <div class="f s3" id="cep-box">
+                            <input id="cep" name="cep" type="text" inputmode="numeric" autocomplete="postal-code" placeholder=" " maxlength="9" required>
+                            <label for="cep">CEP</label>
+                        </div>
+                        <p class="hint" id="cep-hint" role="status" aria-live="polite">Digite o CEP e completamos o resto.</p>
+                        <div class="f s4">
+                            <input id="rua" name="rua" type="text" autocomplete="address-line1" placeholder=" " required>
+                            <label for="rua">Rua</label>
+                        </div>
+                        <div class="f s2 n">
+                            <input id="numero" name="numero" type="text" inputmode="numeric" placeholder=" " required>
+                            <label for="numero">Número</label>
+                        </div>
+                        <div class="f s3">
+                            <input id="bairro" name="bairro" type="text" placeholder=" " required>
+                            <label for="bairro">Bairro</label>
+                        </div>
+                        <div class="f s3 c">
+                            <input id="cidade" name="cidade" type="text" autocomplete="address-level2" placeholder=" " required>
+                            <label for="cidade">Cidade</label>
+                        </div>
+                        <div class="f s2 u">
+                            <input id="estado" name="estado" type="text" maxlength="2" autocomplete="address-level1" placeholder=" " required>
+                            <label for="estado">Estado</label>
+                        </div>
+                        <button class="btn" type="submit">Cadastrar</button>
+                        <div class="done" id="done" hidden role="status"></div>
+                    </form>
+
+                    <div class="pass" id="pass" aria-hidden="true">
+                        <div class="pass-in">
+                            <div class="pass-head">
+                                <img src="logo.png" alt="" width="58" height="58">
+                                <div><b>Passe Doce Melodia</b><small>Cliente da casa</small></div>
+                                <div class="eq"><i></i><i></i><i></i><i></i><i></i></div>
+                            </div>
+                            <div class="pass-name" id="pv-nome">Seu nome aqui</div>
+                            <div class="pass-line" id="pv-rua">Rua e número</div>
+                            <div class="pass-line" id="pv-cidade">Bairro · Cidade/UF</div>
+                            <div class="pass-line" id="pv-cep">00000-000</div>
+                            <div class="cut"></div>
+                            <div class="pass-foot">
+                                <div class="bar"></div>
+                                <div class="serial" id="pv-serial"><small>Nº do passe</small>DM-00000000</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    <footer>
+        <span>Desenvolvido por DIEGO ARAÚJO</span>
+        <a href="mailto:diego.s.araujo7@edu.senai.br">diego.s.araujo7@edu.senai.br</a>
+    </footer>
+    </div>
+<script>
+const $ = id => document.getElementById(id);
+const cep = $('cep'), hint = $('cep-hint'), box = $('cep-box'), pass = $('pass');
+const DICA = 'Digite o CEP e completamos o resto.';
+const setHint = (t, c = '') => { hint.textContent = t; hint.className = 'hint ' + c; };
+
+function preview() {
+    const rua = $('rua').value.trim(), num = $('numero').value.trim();
+    const b = $('bairro').value.trim(), c = $('cidade').value.trim(), u = $('estado').value.trim();
+    $('pv-nome').textContent = $('nome').value.trim() || 'Seu nome aqui';
+    $('pv-rua').textContent = rua ? rua + (num ? ', ' + num : '') : 'Rua e número';
+    $('pv-cidade').textContent = [b, c && u ? c + '/' + u : c || u].filter(Boolean).join(' · ') || 'Bairro · Cidade/UF';
+    $('pv-cep').textContent = cep.value || '00000-000';
+    $('pv-serial').innerHTML = '<small>Nº do passe</small>';
+    $('pv-serial').append('DM-' + (cep.value.replace(/\D/g, '') || '00000000'));
+}
+document.querySelectorAll('#form input').forEach(i => i.addEventListener('input', () => { i.parentElement.classList.remove('bad'); preview(); }));
+
+cep.addEventListener('input', () => {
+    const v = cep.value.replace(/\D/g, '').slice(0, 8);
+    cep.value = v.length > 5 ? v.slice(0, 5) + '-' + v.slice(5) : v;
+    preview();
+    if (v.length === 8) buscarCep(v); else setHint(DICA);
+});
+
+async function buscarCep(v) {
+    setHint('Buscando endereço...'); box.classList.add('load');
+    try {
+        const r = await fetch(`https://viacep.com.br/ws/${v}/json/`);
+        if (!r.ok) throw new Error();
+        const d = await r.json();
+        if (d.erro) { setHint('CEP não encontrado. Confira os números ou preencha o endereço.', 'err'); return; }
+        const campos = { rua: d.logradouro, bairro: d.bairro, cidade: d.localidade, estado: d.uf };
+        for (const [id, val] of Object.entries(campos)) {
+            const el = $(id); el.value = val || '';
+            el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+        }
+        setHint('Endereço preenchido. Falta só o número.', 'ok');
+        preview();
+        pass.classList.remove('play'); void pass.offsetWidth; pass.classList.add('play');
+        $('numero').focus();
+    } catch {
+        setHint('Não foi possível consultar o CEP agora. Preencha o endereço.', 'err');
+    } finally { box.classList.remove('load'); }
+}
+
+$('estado').addEventListener('input', e => { e.target.value = e.target.value.toUpperCase().replace(/[^A-Z]/g, ''); preview(); });
+
+$('form').addEventListener('submit', e => {
+    e.preventDefault();
+    const done = $('done'); done.hidden = false;
+    const ids = ['nome', 'cep', 'rua', 'numero', 'bairro', 'cidade', 'estado'];
+    const faltando = ids.filter(id => !$(id).value.trim());
+    ids.forEach(id => $(id).parentElement.classList.toggle('bad', faltando.includes(id)));
+    if (faltando.length) {
+        $(faltando[0]).focus();
+        done.style.borderColor = '#ff7a9c';
+        done.innerHTML = '<h2>Faltam dados</h2><p>Preencha os campos marcados para concluir o cadastro.</p>';
+        return;
+    }
+    done.style.borderColor = '';
+    const nome = $('nome').value.trim().split(' ')[0];
+    const end = `${$('rua').value}, ${$('numero').value} - ${$('bairro').value}, ${$('cidade').value}/${$('estado').value}`;
+    done.innerHTML = '<h2>Cadastro concluído!</h2><p></p>';
+    done.querySelector('p').textContent = `${nome}, recebemos seus dados. Endereço: ${end}.`;
+    e.target.reset(); setHint(DICA); preview();
+});
+</script>
+</body>
+</html>
